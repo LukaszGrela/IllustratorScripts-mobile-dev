@@ -1,6 +1,6 @@
 /*
  * Exports artboards as png's and saves in the bucket folders e.g. drawable-mdpi
- * @author £ukasz 'Severiaan' Grela
+ * @author ≈Åukasz 'Severiaan' Grela
  * @created 	2015/06/09
  * @modified	2015/06/09
  * @version     0.11
