@@ -20,10 +20,14 @@ Android related script to export artboards as PNG's. This script is to be used w
 e.g. the artboard named _mdpi_ic_launcher_ will be exported to the _drawable-mdpi_ folder as _ic_launcher.png_ file.
 
 #Installation
-Copy the 'greladesign' folder into the _Scripts_ folder and if Illustrator was opened then restart it. Example paths are:
+Copy the 'greladesign' folder into the _Scripts_ folder and if Illustrator was opened then restart it. 
+Example paths are:
+
 Illustrator CS5.1:
+
 `C:\Program Files\Adobe\Adobe Illustrator CS5.1\Presets\en_GB\Scripts`
 
-Illustrator CS6 64bit: 
+Illustrator CS6 64bit:
+
 `C:\Program Files\Adobe\Adobe Illustrator CS6 (64 Bit)\Presets\en_GB\Scripts`
 
