@@ -1,18 +1,18 @@
 /*
- * Creates artboards at the bucket ratios starting at mdpi desired pixel size
+ * Creates artboards at the bucket ratios for iPhone @2x, @3x
  * @author Łukasz 'Severiaan' Grela
- * @created	    2014/12/03
+ * @created	    2018/03/17
  * @modified	2018/03/17
- * @version     1.2
+ * @version     1.1
  */
 /*
  #target Illustrator
  */
 (function() {
-    var densities = ["mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"];
-    var ratios = [1, 1.5, 2, 3, 4];
+    var densities = ["", "@2x", "@3x"];
+    var ratios = [1, 2, 3];
     var getSizeReg = /^\s*(\d+)\s*(?:,|x|X)\s*(\d+)\s*$/gm;
-    var prefixTester = /^(m|h|xh|xxh|xxxh)dpi_/gm;
+    var prefixTester = /@(2|3)x$/gm;
 
     var document = app.activeDocument;
     var artboards = document.artboards;
@@ -60,7 +60,7 @@
     if (document !== null) {
 
         if (!document.saved) {
-            // alert("This script needs to modify your document. Please save it before running this script.", "create_android_artboards.js Warning");
+            // alert("This script needs to modify your document. Please save it before running this script.", "create_ios_artboards.js Warning");
 
             if(!confirm("This script needs to modify your document. Do you wish to save it?")) return;//finish
             else {
@@ -68,23 +68,23 @@
             }
         }
         //INPUT
-        var input, iName, iSize, name, pfx, mul, artboard;
+        var input, iName, iSize, name, sfx, mul, artboard;
         //get size and name
-        iName = prompt("Give the artboards set name (e.g. ic_launcher), do not use following prefixes: (mdpi_, hdpi_, xhdpi_, xxhdpi_ or xxxhdpi_)", "");
+        iName = prompt("Give the artboards set name (e.g. ic_launcher), do not use following suffixes: (@2x, @3x)", "");
         if (iName === null)
             return; //finish;
         if (iName.length === 0 || prefixTester.test(iName))
         {
-            alert("Invalid name, empty or contains dimension prefix (mdpi_, hdpi_, xhdpi_, xxhdpi_ or xxxhdpi_) do not use it in name.", "create_android_artboards.js Error");
+            alert("Invalid name, empty or contains dimension suffixes: (@2x, @3x) do not use it in name.", "create_ios_artboards.js Error");
             return; //finish
         }
-        input = prompt("Give the size of the base artboard (mdpi 1x) in form of width,height e.g. 48,48", "48,48");
+        input = prompt("Give the size of the base artboard (1x) in form of width,height e.g. 48,48", "48,48");
         if (input === null)
             return; //finish;
 
         iSize = parseSize(input);
         if (iSize.width === 0 || iSize.height === 0) {
-            alert("Invalid dimensions.", "create_android_artboards.js Error");
+            alert("Invalid dimensions.", "create_ios_artboards.js Error");
             return; //finish
         }
 
@@ -123,10 +123,10 @@
         /// create artboards
         for (var i = 0; i < densities.length; i++)
         {
-            pfx = densities[i];
+            sfx = densities[i];
             mul = ratios[i];
 
-            name = pfx + "_" + iName;
+            name = iName+sfx;
 
             rect.width = ((iSize.width * mul) | 0);
             rect.height = ((iSize.height * mul) | 0);
@@ -140,7 +140,7 @@
         }
 
     } else {
-        alert("Open document first", "create_android_artboards.js Warning");
+        alert("Open document first", "create_ios_artboards.js Warning");
     }
 
 })();
