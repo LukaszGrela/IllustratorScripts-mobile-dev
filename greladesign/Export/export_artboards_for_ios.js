@@ -7,13 +7,12 @@
 /*
  #target Illustrator
  */
-(function () {
-
+(function() {
     if (app.documents.length == 0) {
-        alert("Open a document containing some artboards to export before running this script");
+        alert('Open a document containing some artboards to export before running this script');
         return;
     }
-    var saveAsPng24 = function (document, filePath, scaleTo) {
+    var saveAsPng24 = function(document, filePath, scaleTo) {
         //alert("saveAsPng24(document,"+filePath+")")
         var file = new File(filePath);
         var options = new ExportOptionsPNG24();
@@ -28,36 +27,35 @@
     /**
      * Scale and export file suffixed by densitySuffix, in a specific folder named folderName
      */
-    var saveToRes = function (document, scaleTo, preffix, densitySuffix, folderName, lowerCase) {
-            var i, ab, file;
+    var saveToRes = function(document, scaleTo, preffix, densitySuffix, folderName, lowerCase) {
+        var i, ab, file;
 
-            var myFolder = new Folder(folder.absoluteURI + "/" + folderName);
-            if (!myFolder.exists) myFolder.create();
+        var myFolder = new Folder(folder.absoluteURI + '/' + folderName);
+        if (!myFolder.exists) myFolder.create();
 
-            for (i = document.artboards.length - 1; i >= 0; i--) {
-                document.artboards.setActiveArtboardIndex(i);
-                ab = document.artboards[i];
+        for (i = document.artboards.length - 1; i >= 0; i--) {
+            document.artboards.setActiveArtboardIndex(i);
+            ab = document.artboards[i];
 
-                var fileName = preffix + ab.name + densitySuffix;
+            var fileName = preffix + ab.name + densitySuffix;
 
-                if (lowerCase) {
-                    fileName = fileName.toLowerCase();
-                }
-                // save
-                saveAsPng24(document, myFolder.fsName + "/" + fileName + ".png", scaleTo);
+            if (lowerCase) {
+                fileName = fileName.toLowerCase();
             }
+            // save
+            saveAsPng24(document, myFolder.fsName + '/' + fileName + '.png', scaleTo);
+            saveAsPng24(document, myFolder.fsName + '/' + fileName + '@2x.png', scaleTo * 2);
+            saveAsPng24(document, myFolder.fsName + '/' + fileName + '@3x.png', scaleTo * 3);
         }
+    };
     //application
     var folder = Folder.selectDialog();
     var document = app.activeDocument;
     var suffix;
 
     if (document && folder) {
-        var documentName = document.name.replace(".ai", "");
+        var documentName = document.name.replace('.ai', '');
 
-        saveToRes(document, 100, "", "", documentName + "/ios", true);
-        //saveToRes(document, 200, "", "@2x", documentName+"/ios", true);
-        //saveToRes(document, 300, "", "@3x", documentName+"/ios", true);
+        saveToRes(document, 100, '', '', documentName + '/ios', true);
     }
-
 })();
