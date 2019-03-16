@@ -9,6 +9,9 @@
         alert('Open a document containing some artboards to export before running this script');
         return;
     }
+
+    var mdpi = 'mdpi_';
+    
     var saveAsPng24 = function(document, filePath, scaleTo) {
         //alert("saveAsPng24(document,"+filePath+")")
         var file = new File(filePath);
@@ -32,6 +35,10 @@
         var abName = ab.name;
         //
         if (confirm('Do you want to export ' + abName + ' artboard?')) {
+
+            // clean out of density prefix
+            abName = abName.split(mdpi).join('');
+            //
             var folder = Folder.selectDialog();
             var documentName = document.name.replace('.ai', '');
 
